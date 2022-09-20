@@ -1,0 +1,6 @@
+package ir.maktab.model.entity;
+
+public class Admin {
+    private final String username = "administrator";
+    private final String password = "123456";
+}
