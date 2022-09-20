@@ -13,6 +13,15 @@ public class Patient {
     private List<Prescription> prescription;
     private List<Invoice> invoiceList;
 
+    public Patient(String firstname, String lastname, String nationalCode, String mobilePhone) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.nationalCode = nationalCode;
+        this.mobilePhone = mobilePhone;
+        this.username = lastname;
+        this.password = nationalCode;
+    }
+
     public String getFirstname() {
         return firstname;
     }
