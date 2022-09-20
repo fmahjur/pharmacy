@@ -11,6 +11,7 @@ public class Patient {
     private String username;
     private String password;
     private List<Prescription> prescription;
+    private List<Invoice> invoiceList;
 
     public String getFirstname() {
         return firstname;
@@ -48,16 +49,16 @@ public class Patient {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    private void setUsername() {
+        this.username = lastname;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    private void setPassword() {
+        this.password = nationalCode;
     }
 
     public List<Prescription> getPrescription() {
@@ -68,17 +69,25 @@ public class Patient {
         this.prescription = prescription;
     }
 
+    public List<Invoice> getInvoiceList() {
+        return invoiceList;
+    }
+
+    public void setInvoiceList(List<Invoice> invoiceList) {
+        this.invoiceList = invoiceList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password) && Objects.equals(prescription, patient.prescription);
+        return Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password) && Objects.equals(prescription, patient.prescription) && Objects.equals(invoiceList, patient.invoiceList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, nationalCode, mobilePhone, username, password, prescription);
+        return Objects.hash(firstname, lastname, nationalCode, mobilePhone, username, password, prescription, invoiceList);
     }
 
     @Override
@@ -88,9 +97,8 @@ public class Patient {
                 ", lastname='" + lastname + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", prescription=" + prescription +
+                ", invoiceList=" + invoiceList +
                 '}';
     }
 }

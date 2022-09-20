@@ -2,7 +2,7 @@ package ir.maktab.model.entity;
 
 import java.util.Objects;
 
-public class invoice {
+public class Invoice {
     private Patient patient;
     private Prescription prescription;
     private double totalBill;
@@ -35,7 +35,7 @@ public class invoice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        invoice invoice = (invoice) o;
+        Invoice invoice = (Invoice) o;
         return Double.compare(invoice.totalBill, totalBill) == 0 && Objects.equals(patient, invoice.patient) && Objects.equals(prescription, invoice.prescription);
     }
 
