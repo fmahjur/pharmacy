@@ -2,9 +2,14 @@ package ir.maktab.model.entity;
 
 import java.util.Objects;
 
-public class medicine {
+public class Medicine {
     private String name;
     private double price;
+
+    public Medicine(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public String getName() {
         return name;
@@ -26,7 +31,7 @@ public class medicine {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        medicine medicine = (medicine) o;
+        Medicine medicine = (Medicine) o;
         return Double.compare(medicine.price, price) == 0 && Objects.equals(name, medicine.name);
     }
 

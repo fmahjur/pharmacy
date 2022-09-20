@@ -22,6 +22,9 @@ public class Patient {
         this.password = nationalCode;
     }
 
+    public Patient(String medicine_name, double price) {
+    }
+
     public String getFirstname() {
         return firstname;
     }

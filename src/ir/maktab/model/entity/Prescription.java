@@ -8,7 +8,7 @@ public class Prescription {
     private Patient patient;
     private String doctorName;
     private Date date;
-    private List<medicine> medicineList;
+    private List<Medicine> medicineList;
 
     public Patient getPatient() {
         return patient;
@@ -34,11 +34,11 @@ public class Prescription {
         this.date = date;
     }
 
-    public List<medicine> getMedicineList() {
+    public List<Medicine> getMedicineList() {
         return medicineList;
     }
 
-    public void setMedicineList(List<medicine> medicineList) {
+    public void setMedicineList(List<Medicine> medicineList) {
         this.medicineList = medicineList;
     }
 

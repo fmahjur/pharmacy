@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Pharmacy {
     private String pharmacyName;
     private Admin admin;
-    private List<medicine> medicineList;
+    private List<Medicine> medicineList;
 
     public String getPharmacyName() {
         return pharmacyName;
@@ -24,11 +24,11 @@ public class Pharmacy {
         this.admin = admin;
     }
 
-    public List<medicine> getMedicineList() {
+    public List<Medicine> getMedicineList() {
         return medicineList;
     }
 
-    public void setMedicineList(List<medicine> medicineList) {
+    public void setMedicineList(List<Medicine> medicineList) {
         this.medicineList = medicineList;
     }
 
