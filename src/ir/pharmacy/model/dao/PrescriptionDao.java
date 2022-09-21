@@ -48,6 +48,7 @@ public class PrescriptionDao {
         getConnection().close();
         return prescription;
     }
+
     public Prescription selectPrescriptionById(int id) throws SQLException {
         String selectQuery = "SELECT * FROM prescription WHERE id = '" + id + "'";
         Statement statement = getConnection().createStatement();

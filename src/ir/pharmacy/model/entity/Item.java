@@ -2,7 +2,7 @@ package ir.pharmacy.model.entity;
 
 import java.util.Objects;
 
-public class item {
+public class Item {
     private int prescriptionId;
     private String name;
     private double price;
@@ -44,7 +44,7 @@ public class item {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        item item = (item) o;
+        Item item = (Item) o;
         return prescriptionId == item.prescriptionId && Double.compare(item.price, price) == 0 && doesExist == item.doesExist && Objects.equals(name, item.name);
     }
 
