@@ -13,6 +13,8 @@ public interface PatientService {
 
     int addPrescription(Prescription prescription) throws Exception;
 
+    List<Prescription> getPrescriptions(Patient patient) throws Exception;
+
     void deletePrescription(Prescription prescription) throws Exception;
 
     void addItemsPrescription(int prescriptionId, String drugName) throws Exception;

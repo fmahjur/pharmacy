@@ -7,6 +7,8 @@ import ir.maktab.model.entity.Patient;
 import ir.maktab.model.entity.Prescription;
 import ir.maktab.service.interfaces.PatientService;
 
+import java.util.List;
+
 public class PatientServiceImpl implements PatientService {
     private static PatientServiceImpl instance = new PatientServiceImpl();
 
@@ -32,6 +34,10 @@ public class PatientServiceImpl implements PatientService {
     public int addPrescription(Prescription prescription) throws Exception {
         prescription.setId(prescriptionDao.insertPrescription(prescription));
         return prescription.getId();
+    }
+
+    public List<Prescription> getPrescriptions(Patient patient) throws Exception {
+        return prescriptionDao.selectPrescriptionByPatientID(patient.getId());
     }
 
     public void deletePrescription(Prescription prescription) throws Exception {

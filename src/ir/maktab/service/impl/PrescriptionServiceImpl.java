@@ -44,6 +44,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionExpireDate.getTime().compareTo(nowDate) >= 0;
     }
 
+    public double calculateTotal(int prescriptionId) throws Exception{
+        double prescriptionTotal = 0;
+        for (Item item: getItems(prescriptionId))
+            prescriptionTotal += item.getPrice();
+        return prescriptionTotal;
+    }
+
     public List<Item> getItems(int prescriptionId) throws Exception {
         return itemDao.selectItems(prescriptionId);
     }

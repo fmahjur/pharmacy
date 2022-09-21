@@ -12,11 +12,13 @@ public interface AdminService {
 
     boolean isExpirePrescription(Prescription prescription);
 
-    boolean confirmPrescription(Prescription prescription) throws Exception;
+    double calculateTotalPrescription(int prescriptionId) throws Exception;
 
-    boolean failPrescription(Prescription prescription) throws Exception;
+    void confirmPrescription(Prescription prescription) throws Exception;
 
-    Boolean waitingStatusPrescription(Prescription prescription) throws Exception;
+    void failPrescription(Prescription prescription) throws Exception;
+
+    void waitingStatusPrescription(Prescription prescription) throws Exception;
 
     List<Item> checkItem(Prescription prescription) throws Exception;
 

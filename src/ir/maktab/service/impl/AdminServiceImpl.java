@@ -24,27 +24,31 @@ public class AdminServiceImpl implements AdminService {
         return prescriptionDao.selectPrescriptionByCheckStatus();
     }
 
-    public Prescription getPrescription(int prescriptionId) throws Exception{
+    public Prescription getPrescription(int prescriptionId) throws Exception {
         return prescriptionDao.selectPrescriptionById(prescriptionId);
     }
 
-    public boolean isExpirePrescription(Prescription prescription){
+    public boolean isExpirePrescription(Prescription prescription) {
         return prescriptionService.expireDate(prescription.getDate());
     }
 
-    public boolean confirmPrescription(Prescription prescription) throws Exception {
+    public double calculateTotalPrescription(int prescriptionId) throws Exception {
+        return prescriptionService.calculateTotal(prescriptionId);
+    }
+
+    public void confirmPrescription(Prescription prescription) throws Exception {
         prescription.setApprovalStatus(true);
-        return prescriptionDao.updateApprovalStatusPrescription(prescription);
+        prescriptionDao.updateApprovalStatusPrescription(prescription);
     }
 
-    public boolean failPrescription(Prescription prescription) throws Exception {
+    public void failPrescription(Prescription prescription) throws Exception {
         prescription.setApprovalStatus(false);
-        return prescriptionDao.updateApprovalStatusPrescription(prescription);
+        prescriptionDao.updateApprovalStatusPrescription(prescription);
     }
 
-    public Boolean waitingStatusPrescription(Prescription prescription) throws Exception {
+    public void waitingStatusPrescription(Prescription prescription) throws Exception {
         prescription.setCheckStatus(true);
-        return prescriptionDao.updateCheckStatusPrescription(prescription);
+        prescriptionDao.updateCheckStatusPrescription(prescription);
     }
 
     public List<Item> checkItem(Prescription prescription) throws Exception {

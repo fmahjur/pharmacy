@@ -16,5 +16,7 @@ public interface PrescriptionService {
 
     boolean expireDate(Date prescriptionDate);
 
+    double calculateTotal(int prescriptionId) throws Exception;
+
     List<Item> getItems(int prescriptionId) throws Exception;
 }

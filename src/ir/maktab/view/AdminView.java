@@ -3,7 +3,6 @@ package ir.maktab.view;
 import ir.maktab.model.entity.Item;
 import ir.maktab.model.entity.Prescription;
 import ir.maktab.service.impl.AdminServiceImpl;
-import ir.maktab.service.impl.PrescriptionServiceImpl;
 
 import java.util.Scanner;
 
@@ -16,6 +15,7 @@ public class AdminView {
     public static AdminView getInstance() {
         return instance;
     }
+
     AdminServiceImpl adminService = AdminServiceImpl.getInstance();
     Scanner scanner = new Scanner(System.in);
 
@@ -37,6 +37,7 @@ public class AdminView {
         if (adminService.isExpirePrescription(prescription)) {
             adminService.waitingStatusPrescription(prescription);
             viewPrescriptionItems(prescriptionId);
+            checkPrescriptionItems();
         }
     }
 
@@ -61,6 +62,9 @@ public class AdminView {
                 adminService.checkExistItem(item, false);
             }
         }
+        enterItemPrice();
+        prescriptionApprovalStatus(prescriptionId);
+        adminService.calculateTotalPrescription(prescriptionId);
     }
 
     public void enterItemPrice() throws Exception {

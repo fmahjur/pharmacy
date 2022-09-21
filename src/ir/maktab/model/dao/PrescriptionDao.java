@@ -41,16 +41,21 @@ public class PrescriptionDao {
         getConnection().close();
     }
 
-    public Prescription selectPrescriptionByPatientID(int patientId) throws SQLException {
+    public List<Prescription> selectPrescriptionByPatientID(int patientId) throws SQLException {
         String selectQuery = "SELECT * FROM prescription WHERE patient_id = '" + patientId + "'";
         Statement statement = getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(selectQuery);
-        Prescription prescription = null;
-        if (resultSet.next()) {
-            prescription = new Prescription();
+        List<Prescription> prescriptions = new ArrayList<>();
+        Prescription prescription;
+        while (resultSet.next()) {
+            prescription = new Prescription(resultSet.getInt("id"),
+                    resultSet.getInt("patient_id"),
+                    resultSet.getString("doctor_name"),
+                    resultSet.getDate("prescription_date"));
+            prescriptions.add(prescription);
         }
         getConnection().close();
-        return prescription;
+        return prescriptions;
     }
 
     public Prescription selectPrescriptionById(int id) throws SQLException {
