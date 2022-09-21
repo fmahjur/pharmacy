@@ -1,11 +1,8 @@
 package ir.maktab.service.impl;
 
 import ir.maktab.model.dao.PatientDao;
-import ir.maktab.model.entity.Medicine;
 import ir.maktab.model.entity.Patient;
 import ir.maktab.service.interfaces.PatientService;
-
-import java.util.List;
 
 public class PatientServiceImpl implements PatientService {
     PatientDao patientDao = PatientDao.getInstance();
@@ -14,11 +11,12 @@ public class PatientServiceImpl implements PatientService {
         patientDao.insertPatient(patient);
     }
 
-    public void deletePatient(String username) throws Exception{
+    public void deletePatient(String username) throws Exception {
         patientDao.deletePatient(username);
     }
 
-    public void addPrescription(List<Medicine> medicineList) {
+    public Patient logIn(String username, String password) throws Exception {
+        return patientDao.patientValidation(username, password);
     }
 
 }

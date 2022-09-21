@@ -1,4 +1,6 @@
-package ir.maktab.model.entity;
+package ir.pharmacy.model.entity;
+
+import ir.maktab.model.entity.Prescription;
 
 import java.util.List;
 import java.util.Objects;
