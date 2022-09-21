@@ -28,6 +28,10 @@ public class AdminServiceImpl implements AdminService {
         return prescriptionDao.selectPrescriptionById(prescriptionId);
     }
 
+    public boolean isExpirePrescription(Prescription prescription){
+        return prescriptionService.expireDate(prescription.getDate());
+    }
+
     public boolean confirmPrescription(Prescription prescription) throws Exception {
         prescription.setApprovalStatus(true);
         return prescriptionDao.updateApprovalStatusPrescription(prescription);
@@ -53,8 +57,7 @@ public class AdminServiceImpl implements AdminService {
         prescriptionService.editItemExist(item);
     }
 
-    public void addPriceItem(Item item, double price) throws Exception {
-        item.setPrice(price);
+    public void addPriceItem(Item item) throws Exception {
         prescriptionService.editItemPrice(item);
     }
 }
