@@ -6,19 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ir.maktab.model.dao.DBConnection.getConnection;
 
 public class ItemDao {
-    private static ItemDao instance;
+    private static ItemDao instance = new ItemDao();
 
     private ItemDao() {
     }
 
     public static ItemDao getInstance() {
-        if (instance == null)
-            return new ItemDao();
         return instance;
     }
 
@@ -41,13 +40,13 @@ public class ItemDao {
     }
 
     public List<Item> selectItems(int prescriptionId) throws Exception {
-        String selectQuery = "SELECT * FROM item WHERE prescription_id =  '" + prescriptionId + "\'";
+        String selectQuery = "SELECT * FROM item WHERE prescription_id =  '" + prescriptionId + "'";
         Statement statement = getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(selectQuery);
-        List<Item> items = null;
-        Item item = null;
+        List<Item> items = new ArrayList<>();
+        Item item;
         while (resultSet.next()) {
-            item = new Item(resultSet.getString("prescription_id"),
+            item = new Item(resultSet.getInt("prescription_id"),
                     resultSet.getString("drug_name"),
                     resultSet.getDouble("price"),
                     resultSet.getBoolean("does_exist"));

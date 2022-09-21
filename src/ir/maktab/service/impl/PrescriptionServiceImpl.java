@@ -9,17 +9,16 @@ import java.util.Date;
 import java.util.List;
 
 public class PrescriptionServiceImpl implements PrescriptionService {
-    ItemDao itemDao = ItemDao.getInstance();
-    private static PrescriptionServiceImpl instance;
+    private static PrescriptionServiceImpl instance = new PrescriptionServiceImpl();
 
     private PrescriptionServiceImpl() {
     }
 
     public static PrescriptionServiceImpl getInstance() {
-        if (instance == null)
-            return new PrescriptionServiceImpl();
         return instance;
     }
+
+    ItemDao itemDao = ItemDao.getInstance();
 
     public void addItem(Item item) throws Exception {
         itemDao.insertItem(item);
@@ -42,9 +41,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         prescriptionExpireDate.setTime(prescriptionDate);
         prescriptionExpireDate.add(Calendar.MONTH, 1);
         Date nowDate = new Date();
-        if (prescriptionExpireDate.getTime().compareTo(nowDate) >= 0)
-            return true;
-        return false;
+        return prescriptionExpireDate.getTime().compareTo(nowDate) >= 0;
     }
 
     public List<Item> getItems(int prescriptionId) throws Exception {

@@ -6,6 +6,8 @@ import ir.maktab.model.entity.Prescription;
 import java.util.List;
 
 public interface AdminService {
+    List<Prescription> getUnCheckedPrescription() throws Exception;
+
     boolean confirmPrescription(Prescription prescription) throws Exception;
 
     boolean failPrescription(Prescription prescription) throws Exception;

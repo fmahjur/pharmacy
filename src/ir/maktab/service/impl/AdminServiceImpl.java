@@ -8,8 +8,25 @@ import ir.maktab.service.interfaces.AdminService;
 import java.util.List;
 
 public class AdminServiceImpl implements AdminService {
+    private static AdminServiceImpl instance = new AdminServiceImpl();
+
+    private AdminServiceImpl() {
+    }
+
+    public static AdminServiceImpl getInstance() {
+        return instance;
+    }
+
     PrescriptionDao prescriptionDao = PrescriptionDao.getInstance();
     PrescriptionServiceImpl prescriptionService = PrescriptionServiceImpl.getInstance();
+
+    public List<Prescription> getUnCheckedPrescription() throws Exception {
+        return prescriptionDao.selectPrescriptionByCheckStatus();
+    }
+
+    public Prescription getPrescription(int prescriptionId) throws Exception{
+        return prescriptionDao.selectPrescriptionById(prescriptionId);
+    }
 
     public boolean confirmPrescription(Prescription prescription) throws Exception {
         prescription.setApprovalStatus(true);
@@ -23,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
 
     public Boolean waitingStatusPrescription(Prescription prescription) throws Exception {
         prescription.setCheckStatus(true);
-        return prescriptionDao.updateApprovalStatusPrescription(prescription);
+        return prescriptionDao.updateCheckStatusPrescription(prescription);
     }
 
     public List<Item> checkItem(Prescription prescription) throws Exception {

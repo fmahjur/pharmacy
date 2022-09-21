@@ -8,7 +8,14 @@ public class Item {
     private double price;
     private boolean doesExist;
 
-    public Item(String prescriptionId, String drugName, double price, boolean doesExist) {
+    public Item() {
+    }
+
+    public Item(int prescriptionId, String drugName, double price, boolean doesExist) {
+        this.prescriptionId = prescriptionId;
+        this.drugName = drugName;
+        this.price = price;
+        this.doesExist = doesExist;
     }
 
     public int getPrescriptionId() {

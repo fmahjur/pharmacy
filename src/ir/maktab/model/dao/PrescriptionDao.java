@@ -3,18 +3,18 @@ package ir.maktab.model.dao;
 import ir.maktab.model.entity.Prescription;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static ir.maktab.model.dao.DBConnection.getConnection;
 
 public class PrescriptionDao {
-    private static PrescriptionDao instance;
+    private static PrescriptionDao instance = new PrescriptionDao();
 
     private PrescriptionDao() {
     }
 
     public static PrescriptionDao getInstance() {
-        if (instance == null)
-            return new PrescriptionDao();
         return instance;
     }
 
@@ -59,10 +59,30 @@ public class PrescriptionDao {
         ResultSet resultSet = statement.executeQuery(selectQuery);
         Prescription prescription = null;
         if (resultSet.next()) {
-            prescription = new Prescription();
+            prescription = new Prescription(resultSet.getInt("id"),
+                    resultSet.getString("patient_name"),
+                    resultSet.getString("doctor_name"),
+                    resultSet.getDate("prescription_date"));
         }
         getConnection().close();
         return prescription;
+    }
+
+    public List<Prescription> selectPrescriptionByCheckStatus() throws SQLException {
+        String selectQuery = "SELECT * FROM prescription WHERE check_status = '" + false + "'";
+        Statement statement = getConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(selectQuery);
+        List<Prescription> prescriptions = new ArrayList<>();
+        Prescription prescription;
+        while (resultSet.next()) {
+            prescription = new Prescription(resultSet.getInt("id"),
+                    resultSet.getString("patient_name"),
+                    resultSet.getString("doctor_name"),
+                    resultSet.getDate("prescription_date"));
+            prescriptions.add(prescription);
+        }
+        getConnection().close();
+        return prescriptions;
     }
 
     public boolean updateCheckStatusPrescription(Prescription prescription) throws Exception {

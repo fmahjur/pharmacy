@@ -10,14 +10,12 @@ import java.sql.Statement;
 import static ir.maktab.model.dao.DBConnection.getConnection;
 
 public class PatientDao {
-    private static PatientDao instance;
+    private static PatientDao instance = new PatientDao();
 
     private PatientDao() {
     }
 
     public static PatientDao getInstance() {
-        if (instance == null)
-            return new PatientDao();
         return instance;
     }
 

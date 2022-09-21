@@ -11,6 +11,16 @@ public class Prescription {
     private boolean checkStatus;
     private boolean approvalStatus;
 
+    public Prescription() {
+    }
+
+    public Prescription(int id, String patientName, String doctorName, Date date) {
+        this.id = id;
+        this.patient = new Patient(patientName);
+        this.doctorName = doctorName;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }

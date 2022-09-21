@@ -10,8 +10,14 @@ public class Patient {
     private String mobilePhone;
     private String username;
     private String password;
-    private List<Prescription> prescription;
-    private List<Prescription> invoiceList;
+
+    public Patient() {
+    }
+
+    public Patient(String lastname) {
+        this.lastname = lastname;
+        this.username = lastname;
+    }
 
     public Patient(String firstname, String lastname, String nationalCode, String mobilePhone) {
         this.firstname = firstname;
@@ -20,9 +26,6 @@ public class Patient {
         this.mobilePhone = mobilePhone;
         this.username = lastname;
         this.password = nationalCode;
-    }
-
-    public Patient(String medicine_name, double price) {
     }
 
     public String getFirstname() {
@@ -61,32 +64,8 @@ public class Patient {
         return username;
     }
 
-    private void setUsername() {
-        this.username = lastname;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    private void setPassword() {
-        this.password = nationalCode;
-    }
-
-    public List<Prescription> getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(List<Prescription> prescription) {
-        this.prescription = prescription;
-    }
-
-    public List<Prescription> getInvoiceList() {
-        return invoiceList;
-    }
-
-    public void setInvoiceList(List<Prescription> invoiceList) {
-        this.invoiceList = invoiceList;
     }
 
     @Override
@@ -94,12 +73,12 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password) && Objects.equals(prescription, patient.prescription) && Objects.equals(invoiceList, patient.invoiceList);
+        return Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, nationalCode, mobilePhone, username, password, prescription, invoiceList);
+        return Objects.hash(firstname, lastname, nationalCode, mobilePhone, username, password);
     }
 
     @Override
@@ -109,8 +88,6 @@ public class Patient {
                 ", lastname='" + lastname + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
-                ", prescription=" + prescription +
-                ", invoiceList=" + invoiceList +
                 '}';
     }
 }
