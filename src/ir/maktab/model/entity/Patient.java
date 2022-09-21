@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Patient {
+
+    private int id;
     private String firstname;
     private String lastname;
     private String nationalCode;
@@ -14,18 +16,31 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String lastname) {
-        this.lastname = lastname;
-        this.username = lastname;
+    public Patient(int patientId) {
+        this.id = patientId;
     }
 
-    public Patient(String firstname, String lastname, String nationalCode, String mobilePhone) {
+    public Patient(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Patient(int id, String firstname, String lastname, String nationalCode, String mobilePhone) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.nationalCode = nationalCode;
         this.mobilePhone = mobilePhone;
         this.username = lastname;
         this.password = nationalCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -73,21 +88,24 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password);
+        return id == patient.id && Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && Objects.equals(nationalCode, patient.nationalCode) && Objects.equals(mobilePhone, patient.mobilePhone) && Objects.equals(username, patient.username) && Objects.equals(password, patient.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, nationalCode, mobilePhone, username, password);
+        return Objects.hash(id, firstname, lastname, nationalCode, mobilePhone, username, password);
     }
 
     @Override
     public String toString() {
         return "Patient{" +
-                "firstname='" + firstname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

@@ -43,7 +43,8 @@ public class PatientDao {
         ResultSet resultSet = statement.executeQuery(selectQuery);
         Patient patient = null;
         if (resultSet.next()) {
-            patient = new Patient(resultSet.getString("firstname"),
+            patient = new Patient(resultSet.getInt("id"),
+                    resultSet.getString("firstname"),
                     resultSet.getString("lastname"),
                     resultSet.getString("national_code"),
                     resultSet.getString("mobile_number"));
@@ -52,17 +53,17 @@ public class PatientDao {
         return patient;
     }
 
-    public Patient patientValidation(String username, String password) throws Exception {
+    public Patient patientValidation(Patient patient) throws Exception {
         String selectQuery = "SELECT * FROM patient " +
-                "WHERE lastname = '" + username + "' AND national_code = '" + password + "'";
+                "WHERE lastname = '" + patient.getUsername() + "' AND national_code = '" + patient.getPassword() + "'";
         Statement statement = getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(selectQuery);
-        Patient patient = null;
         if (resultSet.next()) {
-            patient = new Patient(resultSet.getString("firstname"),
-                    resultSet.getString("lastname"),
-                    resultSet.getString("national_code"),
-                    resultSet.getString("mobile_number"));
+            patient.setId(resultSet.getInt("id"));
+            patient.setFirstname(resultSet.getString("firstname"));
+            patient.setLastname(resultSet.getString("lastname"));
+            patient.setNationalCode(resultSet.getString("national_code"));
+            patient.setMobilePhone(resultSet.getString("mobile_number"));
         }
         getConnection().close();
         return patient;

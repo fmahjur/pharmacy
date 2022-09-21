@@ -14,9 +14,19 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(int id, String patientName, String doctorName, Date date) {
+    public Prescription(int id) {
         this.id = id;
-        this.patient = new Patient(patientName);
+    }
+
+    public Prescription(int patientId, String doctorName, Date date) {
+        this.patient = new Patient(patientId);
+        this.doctorName = doctorName;
+        this.date = date;
+    }
+
+    public Prescription(int id, int patientId, String doctorName, Date date) {
+        this.id = id;
+        this.patient = new Patient(patientId);
         this.doctorName = doctorName;
         this.date = date;
     }

@@ -19,9 +19,9 @@ public class PrescriptionDao {
     }
 
     public int insertPrescription(Prescription prescription) throws Exception {
-        String insertQuery = "INSERT INTO prescription (patient_name, doctor_name, prescription_date) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO prescription (patient_id, doctor_name, prescription_date) VALUES (?, ?, ?)";
         PreparedStatement prepareStatement = getConnection().prepareStatement(insertQuery);
-        prepareStatement.setString(1, prescription.getPatient().getUsername());
+        prepareStatement.setInt(1, prescription.getPatient().getId());
         prepareStatement.setString(2, prescription.getDoctorName());
         prepareStatement.setDate(3, (Date) prescription.getDate());
         prepareStatement.executeUpdate();
@@ -41,8 +41,8 @@ public class PrescriptionDao {
         getConnection().close();
     }
 
-    public Prescription selectPrescriptionByPatient(String patient) throws SQLException {
-        String selectQuery = "SELECT * FROM prescription WHERE patient = '" + patient + "'";
+    public Prescription selectPrescriptionByPatientID(int patientId) throws SQLException {
+        String selectQuery = "SELECT * FROM prescription WHERE patient_id = '" + patientId + "'";
         Statement statement = getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(selectQuery);
         Prescription prescription = null;
@@ -60,7 +60,7 @@ public class PrescriptionDao {
         Prescription prescription = null;
         if (resultSet.next()) {
             prescription = new Prescription(resultSet.getInt("id"),
-                    resultSet.getString("patient_name"),
+                    resultSet.getInt("patient_id"),
                     resultSet.getString("doctor_name"),
                     resultSet.getDate("prescription_date"));
         }
@@ -76,7 +76,7 @@ public class PrescriptionDao {
         Prescription prescription;
         while (resultSet.next()) {
             prescription = new Prescription(resultSet.getInt("id"),
-                    resultSet.getString("patient_name"),
+                    resultSet.getInt("patient_id"),
                     resultSet.getString("doctor_name"),
                     resultSet.getDate("prescription_date"));
             prescriptions.add(prescription);

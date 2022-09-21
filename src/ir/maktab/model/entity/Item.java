@@ -11,6 +11,11 @@ public class Item {
     public Item() {
     }
 
+    public Item(int prescriptionId, String drugName) {
+        this.prescriptionId = prescriptionId;
+        this.drugName = drugName;
+    }
+
     public Item(int prescriptionId, String drugName, double price, boolean doesExist) {
         this.prescriptionId = prescriptionId;
         this.drugName = drugName;
