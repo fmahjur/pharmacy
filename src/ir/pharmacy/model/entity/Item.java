@@ -4,9 +4,12 @@ import java.util.Objects;
 
 public class Item {
     private int prescriptionId;
-    private String name;
+    private String drugName;
     private double price;
     private boolean doesExist;
+
+    public Item(String prescriptionId, String drugName, double price, boolean doesExist) {
+    }
 
     public int getPrescriptionId() {
         return prescriptionId;
@@ -16,12 +19,12 @@ public class Item {
         this.prescriptionId = prescriptionId;
     }
 
-    public String getName() {
-        return name;
+    public String getDrugName() {
+        return drugName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
     }
 
     public double getPrice() {
@@ -45,19 +48,19 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return prescriptionId == item.prescriptionId && Double.compare(item.price, price) == 0 && doesExist == item.doesExist && Objects.equals(name, item.name);
+        return prescriptionId == item.prescriptionId && Double.compare(item.price, price) == 0 && doesExist == item.doesExist && Objects.equals(drugName, item.drugName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prescriptionId, name, price, doesExist);
+        return Objects.hash(prescriptionId, drugName, price, doesExist);
     }
 
     @Override
     public String toString() {
         return "item{" +
                 "prescriptionId=" + prescriptionId +
-                ", name='" + name + '\'' +
+                ", name='" + drugName + '\'' +
                 ", price=" + price +
                 ", doesExist=" + doesExist +
                 '}';

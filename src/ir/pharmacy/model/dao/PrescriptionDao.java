@@ -18,7 +18,7 @@ public class PrescriptionDao {
         return instance;
     }
 
-    public void insertPrescription(Prescription prescription) throws Exception {
+    public int insertPrescription(Prescription prescription) throws Exception {
         String insertQuery = "INSERT INTO prescription (patient_name, doctor_name, prescription_date, checke_status, approval_status) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement prepareStatement = getConnection().prepareStatement(insertQuery);
         prepareStatement.setString(1, prescription.getPatient().getUsername());
@@ -27,7 +27,13 @@ public class PrescriptionDao {
         prepareStatement.setBoolean(4, prescription.isCheckStatus());
         prepareStatement.setBoolean(5, prescription.isApprovalStatus());
         prepareStatement.executeUpdate();
+
+        ResultSet resultSet = prepareStatement.getGeneratedKeys();
+        int generatedKey = 0;
+        if (resultSet.next())
+            generatedKey = resultSet.getInt(1);
         getConnection().close();
+        return generatedKey;
     }
 
     public void deletePrescription(int id) throws SQLException {
