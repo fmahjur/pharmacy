@@ -19,7 +19,7 @@ public class PatientDao {
         return instance;
     }
 
-    public void insertPatient(Patient patient) throws Exception {
+    public int insertPatient(Patient patient) throws Exception {
         String insertQuery = "INSERT INTO patient (firstname, lastname, national_code, mobile_number) VALUES (?, ?, ?, ?)";
         PreparedStatement prepareStatement = getConnection().prepareStatement(insertQuery);
         prepareStatement.setString(1, patient.getFirstname());
@@ -27,7 +27,13 @@ public class PatientDao {
         prepareStatement.setString(3, patient.getNationalCode());
         prepareStatement.setString(4, patient.getMobilePhone());
         prepareStatement.executeUpdate();
+
+        ResultSet resultSet = prepareStatement.getGeneratedKeys();
+        int generatedKey = 0;
+        if (resultSet.next())
+            generatedKey = resultSet.getInt(1);
         getConnection().close();
+        return generatedKey;
     }
 
     public void deletePatient(String username) throws SQLException {

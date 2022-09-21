@@ -25,6 +25,13 @@ public class Patient {
         this.password = password;
     }
 
+    public Patient(String firstname, String lastname, String nationalCode, String mobilePhone) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.nationalCode = nationalCode;
+        this.mobilePhone = mobilePhone;
+    }
+
     public Patient(int id, String firstname, String lastname, String nationalCode, String mobilePhone) {
         this.id = id;
         this.firstname = firstname;

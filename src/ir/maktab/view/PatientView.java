@@ -2,6 +2,7 @@ package ir.maktab.view;
 
 import ir.maktab.model.entity.Patient;
 import ir.maktab.model.entity.Prescription;
+import ir.maktab.service.impl.AdminServiceImpl;
 import ir.maktab.service.impl.PatientServiceImpl;
 
 import java.text.ParseException;
@@ -10,6 +11,15 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class PatientView {
+    private static PatientView instance = new PatientView();
+
+    private PatientView() {
+    }
+
+    public static PatientView getInstance() {
+        return instance;
+    }
+
     PatientServiceImpl patientService = PatientServiceImpl.getInstance();
     Scanner scanner = new Scanner(System.in);
 
@@ -20,6 +30,23 @@ public class PatientView {
         String password = scanner.next();
         Patient patient = new Patient(username, password);
         patient.setId(patientService.login(patient));
+        MainHandler mainHandler = new MainHandler();
+        mainHandler.setPatientViewAfterLogin(patient.getId());
+    }
+
+    public void signUp() throws Exception {
+        System.out.print("please enter your firstname: ");
+        String firstname = scanner.next();
+        System.out.print("please enter your lastname: ");
+        String lastname = scanner.next();
+        System.out.print("please enter your nationalCode: ");
+        String nationalCode = scanner.next();
+        System.out.print("please enter your mobilePhone: ");
+        String mobilePhone = scanner.next();
+        Patient patient = new Patient(firstname, lastname, nationalCode, mobilePhone);
+        patient.setId(patientService.signUp(patient));
+        MainHandler mainHandler = new MainHandler();
+        mainHandler.setPatientViewAfterLogin(patient.getId());
     }
 
     public void addPrescription(int patientId) throws Exception {
@@ -36,6 +63,12 @@ public class PatientView {
     public void deletePrescription(int patientId) throws Exception {
         Prescription prescription = new Prescription((patientId));
         patientService.deletePrescription(prescription);
+    }
+
+    public void editPrescriptionItems(int patientId) throws Exception{
+        Prescription prescription = new Prescription((patientId));
+        System.out.println("for edit item, you should delete this at first and then add again!");
+        deleteItem(prescription.getId());
     }
 
     public void addItem(int prescriptionID) throws Exception {

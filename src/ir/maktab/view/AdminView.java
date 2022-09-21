@@ -8,10 +8,18 @@ import ir.maktab.service.impl.PrescriptionServiceImpl;
 import java.util.Scanner;
 
 public class AdminView {
+    private static AdminView instance = new AdminView();
+
+    private AdminView() {
+    }
+
+    public static AdminView getInstance() {
+        return instance;
+    }
     AdminServiceImpl adminService = AdminServiceImpl.getInstance();
     Scanner scanner = new Scanner(System.in);
 
-    public void viewUnCheckedPrescriptions(int prescriptionId) throws Exception {
+    public void viewUnCheckedPrescriptions() throws Exception {
         System.out.println("| PrescriptionId | PatientName |    Date    ");
         System.out.println("--------------------------------------------");
         for (Prescription prescription : adminService.getUnCheckedPrescription()) {
@@ -22,7 +30,9 @@ public class AdminView {
         }
     }
 
-    public void checkPrescription(int prescriptionId) throws Exception {
+    public void checkPrescription() throws Exception {
+        System.out.print("enter prescriptionId for check: ");
+        int prescriptionId = scanner.nextInt();
         Prescription prescription = adminService.getPrescription(prescriptionId);
         if (adminService.isExpirePrescription(prescription)) {
             adminService.waitingStatusPrescription(prescription);
@@ -39,7 +49,9 @@ public class AdminView {
         }
     }
 
-    public void checkPrescriptionItems(int prescriptionId) throws Exception {
+    public void checkPrescriptionItems() throws Exception {
+        System.out.print("enter prescriptionId for check prescription item: ");
+        int prescriptionId = scanner.nextInt();
         for (Item item : adminService.checkItem(adminService.getPrescription(prescriptionId))) {
             System.out.print(item.getDrugName() + "is Exist? (Y/N): ");
             String choices = scanner.next();
@@ -51,7 +63,9 @@ public class AdminView {
         }
     }
 
-    public void enterItemPrice(int prescriptionId) throws Exception {
+    public void enterItemPrice() throws Exception {
+        System.out.print("enter prescriptionId for check prescription item: ");
+        int prescriptionId = scanner.nextInt();
         for (Item item : adminService.checkItem(adminService.getPrescription(prescriptionId))) {
             System.out.print("please enter price for " + item.getDrugName() + ": ");
             double price = scanner.nextDouble();
