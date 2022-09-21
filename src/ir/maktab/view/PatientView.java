@@ -23,28 +23,28 @@ public class PatientView {
     }
 
     public void addPrescription(int patientId) throws Exception {
-            System.out.print("please enter doctor name: ");
-            String doctorName = scanner.next();
-            System.out.print("please enter prescription date (yyyy-mm-dd): ");
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
-            Date prescriptionDate = simpleDateFormat.parse(scanner.next());
-            Prescription prescription = new Prescription(patientId, doctorName, prescriptionDate);
-            prescription.setId(patientService.addPrescription(prescription));
-            addItem(prescription.getId());
+        System.out.print("please enter doctor name: ");
+        String doctorName = scanner.next();
+        System.out.print("please enter prescription date (yyyy-mm-dd): ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        Date prescriptionDate = simpleDateFormat.parse(scanner.next());
+        Prescription prescription = new Prescription(patientId, doctorName, prescriptionDate);
+        prescription.setId(patientService.addPrescription(prescription));
+        addItem(prescription.getId());
     }
 
-    public void deletePrescription(int patientId) throws Exception{
+    public void deletePrescription(int patientId) throws Exception {
         Prescription prescription = new Prescription((patientId));
         patientService.deletePrescription(prescription);
     }
 
-    public void addItem(int prescriptionID) throws Exception{
+    public void addItem(int prescriptionID) throws Exception {
         System.out.println("please enter prescription item name: ");
         String drugName = scanner.next();
         patientService.addItemsPrescription(prescriptionID, drugName);
     }
 
-    public void deleteItem(int prescriptionID) throws Exception{
+    public void deleteItem(int prescriptionID) throws Exception {
         System.out.println("please enter prescription item name for deleted: ");
         String drugName = scanner.next();
         patientService.deleteItemPrescription(prescriptionID, drugName);
