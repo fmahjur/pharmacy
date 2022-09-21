@@ -35,7 +35,7 @@ public class Item {
         this.price = price;
     }
 
-    public boolean isDoesExist() {
+    public boolean isExist() {
         return doesExist;
     }
 

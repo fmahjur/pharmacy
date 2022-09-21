@@ -1,5 +1,6 @@
 package ir.pharmacy.model.dao;
 
+import ir.pharmacy.model.entity.Item;
 import ir.pharmacy.model.entity.Prescription;
 
 import java.sql.*;
@@ -19,13 +20,11 @@ public class PrescriptionDao {
     }
 
     public int insertPrescription(Prescription prescription) throws Exception {
-        String insertQuery = "INSERT INTO prescription (patient_name, doctor_name, prescription_date, checke_status, approval_status) VALUES (?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO prescription (patient_name, doctor_name, prescription_date) VALUES (?, ?, ?)";
         PreparedStatement prepareStatement = getConnection().prepareStatement(insertQuery);
         prepareStatement.setString(1, prescription.getPatient().getUsername());
         prepareStatement.setString(2, prescription.getDoctorName());
         prepareStatement.setDate(3, (Date) prescription.getDate());
-        prepareStatement.setBoolean(4, prescription.isCheckStatus());
-        prepareStatement.setBoolean(5, prescription.isApprovalStatus());
         prepareStatement.executeUpdate();
 
         ResultSet resultSet = prepareStatement.getGeneratedKeys();
@@ -65,6 +64,24 @@ public class PrescriptionDao {
         }
         getConnection().close();
         return prescription;
+    }
+
+    public boolean updateCheckStatusPrescription(Prescription prescription) throws Exception {
+        String updateQuery = "UPDATE prescription Set (check_status = '" + prescription.isCheckStatus() +
+                "' WHERE id = '" + prescription.getId() + "'";
+        Statement statement = getConnection().createStatement();
+        int flag = statement.executeUpdate(updateQuery);
+        getConnection().close();
+        return flag > 0;
+    }
+
+    public boolean updateApprovalStatusPrescription(Prescription prescription) throws Exception {
+        String updateQuery = "UPDATE prescription Set approval_status = '" + prescription.isApprovalStatus() +
+                "' WHERE id = '" + prescription.getId() + "'";
+        Statement statement = getConnection().createStatement();
+        int flag = statement.executeUpdate(updateQuery);
+        getConnection().close();
+        return flag > 0;
     }
 
 }

@@ -28,8 +28,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         itemDao.deleteItem(prescriptionId, drugName);
     }
 
-    public void editItem(Item item) throws Exception {
-        itemDao.updateItem(item);
+    public void editItemExist(Item item) throws Exception {
+        itemDao.updateItemExist(item);
+    }
+
+    public void editItemPrice(Item item) throws Exception {
+        itemDao.updateItemPrice(item);
     }
 
     public List<Item> getItems(int prescriptionId) throws Exception {

@@ -28,7 +28,7 @@ public class ItemDao {
         prepareStatement.setInt(1, item.getPrescriptionId());
         prepareStatement.setString(2, item.getDrugName());
         prepareStatement.setDouble(3, item.getPrice());
-        prepareStatement.setBoolean(4, item.isDoesExist());
+        prepareStatement.setBoolean(4, item.isExist());
         prepareStatement.executeUpdate();
         getConnection().close();
     }
@@ -57,8 +57,16 @@ public class ItemDao {
         return items;
     }
 
-    public boolean updateItem(Item item) throws Exception {
-        String updateQuery = "UPDATE item Set (price = '" + item.getPrice() + "', does_exist = '" + item.isDoesExist() +
+    public boolean updateItemExist(Item item) throws Exception {
+        String updateQuery = "UPDATE item Set does_exist = '" + item.isExist() +
+                "' WHERE medicine_name = '" + item.getDrugName() + "'";
+        Statement statement = getConnection().createStatement();
+        int flag = statement.executeUpdate(updateQuery);
+        getConnection().close();
+        return flag > 0;
+    }
+    public boolean updateItemPrice(Item item) throws Exception {
+        String updateQuery = "UPDATE item Set price = '" + item.getPrice() +
                 "' WHERE medicine_name = '" + item.getDrugName() + "'";
         Statement statement = getConnection().createStatement();
         int flag = statement.executeUpdate(updateQuery);
