@@ -9,7 +9,6 @@ public class Prescription {
     private Patient patient;
     private String doctorName;
     private Date date;
-    private List<item> items;
     private boolean checkStatus;
     private boolean approvalStatus;
 
@@ -45,14 +44,6 @@ public class Prescription {
         this.date = date;
     }
 
-    public List<item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<item> items) {
-        this.items = items;
-    }
-
     public boolean isCheckStatus() {
         return checkStatus;
     }
@@ -74,21 +65,21 @@ public class Prescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prescription that = (Prescription) o;
-        return id == that.id && checkStatus == that.checkStatus && approvalStatus == that.approvalStatus && Objects.equals(patient, that.patient) && Objects.equals(doctorName, that.doctorName) && Objects.equals(date, that.date) && Objects.equals(items, that.items);
+        return id == that.id && checkStatus == that.checkStatus && approvalStatus == that.approvalStatus && Objects.equals(patient, that.patient) && Objects.equals(doctorName, that.doctorName) && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, patient, doctorName, date, items, checkStatus, approvalStatus);
+        return Objects.hash(id, patient, doctorName, date, checkStatus, approvalStatus);
     }
 
     @Override
     public String toString() {
         return "Prescription{" +
-                "patient=" + patient +
+                "id=" + id +
+                ", patient=" + patient +
                 ", doctorName='" + doctorName + '\'' +
                 ", date=" + date +
-                ", items=" + items +
                 ", checkStatus=" + checkStatus +
                 ", approvalStatus=" + approvalStatus +
                 '}';
