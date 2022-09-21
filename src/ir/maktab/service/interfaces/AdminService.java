@@ -1,7 +1,7 @@
-package ir.pharmacy.service.interfaces;
+package ir.maktab.service.interfaces;
 
-import ir.pharmacy.model.entity.Item;
-import ir.pharmacy.model.entity.Prescription;
+import ir.maktab.model.entity.Item;
+import ir.maktab.model.entity.Prescription;
 
 import java.util.List;
 

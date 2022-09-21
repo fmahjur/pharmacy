@@ -1,7 +1,5 @@
 package ir.maktab.model.dao;
 
-import ir.maktab.model.entity.Medicine;
-import ir.maktab.model.entity.Patient;
 import ir.maktab.model.entity.Prescription;
 
 import java.sql.*;
@@ -20,29 +18,31 @@ public class PrescriptionDao {
         return instance;
     }
 
-    public void insertPrescription(Prescription prescription) throws Exception {
-        String insertQuery = "INSERT INTO prescription (id, patient, doctor, prescription_date, medicine) VALUES (?, ?, ?, ?, ?)";
+    public int insertPrescription(Prescription prescription) throws Exception {
+        String insertQuery = "INSERT INTO prescription (patient_name, doctor_name, prescription_date) VALUES (?, ?, ?)";
         PreparedStatement prepareStatement = getConnection().prepareStatement(insertQuery);
-        for (Medicine medicine : prescription.getMedicineList()) {
-            prepareStatement.setInt(1, prescription.getId());
-            prepareStatement.setString(2, prescription.getPatient().getUsername());
-            prepareStatement.setString(3, prescription.getDoctorName());
-            prepareStatement.setDate(4, (Date) prescription.getDate());
-            prepareStatement.setString(5, medicine.getName());
-            prepareStatement.executeUpdate();
-        }
+        prepareStatement.setString(1, prescription.getPatient().getUsername());
+        prepareStatement.setString(2, prescription.getDoctorName());
+        prepareStatement.setDate(3, (Date) prescription.getDate());
+        prepareStatement.executeUpdate();
+
+        ResultSet resultSet = prepareStatement.getGeneratedKeys();
+        int generatedKey = 0;
+        if (resultSet.next())
+            generatedKey = resultSet.getInt(1);
         getConnection().close();
+        return generatedKey;
     }
 
-    public void deleteMedicineFromPrescription(String medicineName) throws SQLException {
-        String deleteQuery = "DELETE FROM prescription WHERE medicine =  '" + medicineName + "'";
+    public void deletePrescription(int id) throws SQLException {
+        String deleteQuery = "DELETE FROM prescription WHERE id =  '" + id + "'";
         Statement statement = getConnection().createStatement();
         statement.executeUpdate(deleteQuery);
         getConnection().close();
     }
 
-    public Prescription selectPrescription(String patient, int id) throws SQLException {
-        String selectQuery = "SELECT * FROM prescription WHERE patient = '" + patient + "' AND id = '" + id + "'";
+    public Prescription selectPrescriptionByPatient(String patient) throws SQLException {
+        String selectQuery = "SELECT * FROM prescription WHERE patient = '" + patient + "'";
         Statement statement = getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(selectQuery);
         Prescription prescription = null;
@@ -51,6 +51,36 @@ public class PrescriptionDao {
         }
         getConnection().close();
         return prescription;
+    }
+
+    public Prescription selectPrescriptionById(int id) throws SQLException {
+        String selectQuery = "SELECT * FROM prescription WHERE id = '" + id + "'";
+        Statement statement = getConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(selectQuery);
+        Prescription prescription = null;
+        if (resultSet.next()) {
+            prescription = new Prescription();
+        }
+        getConnection().close();
+        return prescription;
+    }
+
+    public boolean updateCheckStatusPrescription(Prescription prescription) throws Exception {
+        String updateQuery = "UPDATE prescription Set (check_status = '" + prescription.isCheckStatus() +
+                "' WHERE id = '" + prescription.getId() + "'";
+        Statement statement = getConnection().createStatement();
+        int flag = statement.executeUpdate(updateQuery);
+        getConnection().close();
+        return flag > 0;
+    }
+
+    public boolean updateApprovalStatusPrescription(Prescription prescription) throws Exception {
+        String updateQuery = "UPDATE prescription Set approval_status = '" + prescription.isApprovalStatus() +
+                "' WHERE id = '" + prescription.getId() + "'";
+        Statement statement = getConnection().createStatement();
+        int flag = statement.executeUpdate(updateQuery);
+        getConnection().close();
+        return flag > 0;
     }
 
 }

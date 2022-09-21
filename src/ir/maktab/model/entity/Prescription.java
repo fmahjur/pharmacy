@@ -1,7 +1,6 @@
 package ir.maktab.model.entity;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class Prescription {
@@ -9,7 +8,8 @@ public class Prescription {
     private Patient patient;
     private String doctorName;
     private Date date;
-    private List<Medicine> medicineList;
+    private boolean checkStatus;
+    private boolean approvalStatus;
 
     public int getId() {
         return id;
@@ -43,12 +43,20 @@ public class Prescription {
         this.date = date;
     }
 
-    public List<Medicine> getMedicineList() {
-        return medicineList;
+    public boolean isCheckStatus() {
+        return checkStatus;
     }
 
-    public void setMedicineList(List<Medicine> medicineList) {
-        this.medicineList = medicineList;
+    public void setCheckStatus(boolean checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public boolean isApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(boolean approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
     @Override
@@ -56,21 +64,23 @@ public class Prescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prescription that = (Prescription) o;
-        return Objects.equals(patient, that.patient) && Objects.equals(doctorName, that.doctorName) && Objects.equals(date, that.date) && Objects.equals(medicineList, that.medicineList);
+        return id == that.id && checkStatus == that.checkStatus && approvalStatus == that.approvalStatus && Objects.equals(patient, that.patient) && Objects.equals(doctorName, that.doctorName) && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(patient, doctorName, date, medicineList);
+        return Objects.hash(id, patient, doctorName, date, checkStatus, approvalStatus);
     }
 
     @Override
     public String toString() {
         return "Prescription{" +
-                "patient=" + patient +
+                "id=" + id +
+                ", patient=" + patient +
                 ", doctorName='" + doctorName + '\'' +
                 ", date=" + date +
-                ", medicineList=" + medicineList +
+                ", checkStatus=" + checkStatus +
+                ", approvalStatus=" + approvalStatus +
                 '}';
     }
 }

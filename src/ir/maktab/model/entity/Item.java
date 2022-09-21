@@ -1,4 +1,4 @@
-package ir.pharmacy.model.entity;
+package ir.maktab.model.entity;
 
 import java.util.Objects;
 

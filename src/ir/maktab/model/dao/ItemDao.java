@@ -1,6 +1,6 @@
-package ir.pharmacy.model.dao;
+package ir.maktab.model.dao;
 
-import ir.pharmacy.model.entity.Item;
+import ir.maktab.model.entity.Item;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +65,7 @@ public class ItemDao {
         getConnection().close();
         return flag > 0;
     }
+
     public boolean updateItemPrice(Item item) throws Exception {
         String updateQuery = "UPDATE item Set price = '" + item.getPrice() +
                 "' WHERE medicine_name = '" + item.getDrugName() + "'";

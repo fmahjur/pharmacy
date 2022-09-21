@@ -1,9 +1,9 @@
-package ir.pharmacy.service.impl;
+package ir.maktab.service.impl;
 
-import ir.pharmacy.model.dao.PrescriptionDao;
-import ir.pharmacy.model.entity.Item;
-import ir.pharmacy.model.entity.Prescription;
-import ir.pharmacy.service.interfaces.AdminService;
+import ir.maktab.model.dao.PrescriptionDao;
+import ir.maktab.model.entity.Item;
+import ir.maktab.model.entity.Prescription;
+import ir.maktab.service.interfaces.AdminService;
 
 import java.util.List;
 
@@ -28,10 +28,10 @@ public class AdminServiceImpl implements AdminService {
 
     public List<Item> checkItem(Prescription prescription) throws Exception {
         waitingStatusPrescription(prescription);
-        return  prescriptionService.getItems(prescription.getId());
+        return prescriptionService.getItems(prescription.getId());
     }
 
-    public void checkExistItem(Item item, boolean doesExist) throws Exception{
+    public void checkExistItem(Item item, boolean doesExist) throws Exception {
         item.setDoesExist(doesExist);
         prescriptionService.editItemExist(item);
     }
